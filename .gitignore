@@ -1,0 +1,16 @@
+data
+.history
+logs_tmp
+*.pyc
+wandb
+__pycache__
+snn_maml/__pycache__/__init__.cpython-38.pyc
+snn_maml/__pycache__/__init__.cpython-38.pyc
+snn_maml/__pycache__/benchmarks.cpython-38.pyc
+snn_maml/__pycache__/maml.cpython-38.pyc
+snn_maml/__pycache__/plasticity_rules.cpython-38.pyc
+snn_maml/__pycache__/utils.cpython-38.pyc
+snn_maml.egg-info/dependency_links.txt
+snn_maml.egg-info/PKG-INFO
+snn_maml.egg-info/SOURCES.txt
+snn_maml.egg-info/top_level.txt
