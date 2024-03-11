@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../pytorch-eventprop"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../../ML/reptile-torch"
+		}
+	],
+	"settings": {}
+}

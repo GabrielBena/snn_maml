@@ -7,11 +7,15 @@ from collections import OrderedDict
 
 def compute_accuracy(logits, targets, first_spike_fn=None):
     """Compute the accuracy"""
+
     with torch.no_grad():
         if first_spike_fn is not None:
             logits = first_spike_fn(logits)
 
-        _, predictions = torch.max(logits, dim=1)
+            _, predictions = torch.min(logits, dim=-1)
+        else:
+            _, predictions = torch.max(logits, dim=-1)
+
         accuracy = torch.mean(predictions.eq(targets).float())
     return accuracy.item()
 
@@ -64,15 +68,10 @@ def tensors_to_device(tensors, device=torch.device("cpu")):
     if isinstance(tensors, torch.Tensor):
         return tensors.to(device=device)
     elif isinstance(tensors, (list, tuple)):
-        return type(tensors)(
-            tensors_to_device(tensor, device=device) for tensor in tensors
-        )
+        return type(tensors)(tensors_to_device(tensor, device=device) for tensor in tensors)
     elif isinstance(tensors, (dict, OrderedDict)):
         return type(tensors)(
-            [
-                (name, tensors_to_device(tensor, device=device))
-                for (name, tensor) in tensors.items()
-            ]
+            [(name, tensors_to_device(tensor, device=device)) for (name, tensor) in tensors.items()]
         )
     else:
         raise NotImplementedError()
@@ -119,9 +118,7 @@ softsign = SoftSign.apply
 
 
 @torch.no_grad()
-def cg_solve(
-    f_Ax, b, cg_iters=10, callback=None, verbose=False, residual_tol=1e-10, x_init=None
-):
+def cg_solve(f_Ax, b, cg_iters=10, callback=None, verbose=False, residual_tol=1e-10, x_init=None):
     """
     Goal: Solve Ax=b equivalent to minimizing f(x) = 1/2 x^T A x - x^T b
     Assumption: A is PSD, no damping term is used here (must be damped externally in f_Ax)

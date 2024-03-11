@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../pytorch-eventprop"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

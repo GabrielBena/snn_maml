@@ -2,5 +2,5 @@ from setuptools import find_packages, setup
 
 setup(
     name="snn_maml",
-    packages=find_packages(),
+    packages=find_packages(exclude=["data", "trained", "wandb", "parameters"]),
 )
